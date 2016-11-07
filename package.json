@@ -1,0 +1,15 @@
+{
+  "name": "rss_test",
+  "version": "1.0.0",
+  "description": "itp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tisch",
+    "feed"
+  ],
+  "author": "kyle greenberg",
+  "license": "ISC"
+}

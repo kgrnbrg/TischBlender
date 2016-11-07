@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tisch blender </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="libraries/p5.js" type="text/javascript"></script>
+    <script src="libraries/p5.dom.js" type="text/javascript"></script>
+    <script src="libraries/p5.sound.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
+
+<script>
+
+//LIST OF SITES
+var rssList= [
+"http://www.michellechandra.com/feed",
+"http://www.adorevolution.com/process?format=rss",
+"http://www.gal-nissim.com/feed/",
+"http://1023.io/?format=rss",
+"http://abrain.in/feed/",
+"http://ajlevine.com/itp/feed/",
+"http://annekgoodfriend.com/feed/",
+"http://anotheridea.co/feed/",
+"http://antoni.us/rss",
+"http://aspaceforsound.com/feed/"
+];
+
+var rand = rssList[Math.floor(Math.random() * rssList.length)];
+
+
+var findThing = [
+"item", "entry"]
+var randF= findThing[Math.floor(Math.random()*findThing.length)];
+
+var objSt=[];
+
+for (var i =0 ; i <= rssList.length; i++){
+	grabShit(rssList[i]);
+}
+
+function grabShit(url){
+
+return new Promise (function(resolve, reject){
+
+	var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
+    var call = itp_proxy+url;
+
+	$.get(call, function (data) {
+    	$(data).find(randF).first().each(function () { // or "item" or whatever suits your feed
+    
+        var el = $(this);
+        
+        var fake = {
+        	title: el.find("title").text(),
+        	link: el.find("link").text(),
+        	author: el.find("author").text(),
+        	description: el.find("description").text(),
+        	content: el.find("content").text(),
+        }
+        objSt.push(fake);
+  		
+ 
+        });
+
+      });
+ 
+   })
+};
+
+
+console.log(objSt);
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
