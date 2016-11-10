@@ -1,15 +1,31 @@
 {
-  "name": "rss_test",
+  "name": "tischblender",
   "version": "1.0.0",
-  "description": "itp",
-  "main": "index.js",
+  "description": "tisch blender",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgrnbrg/TischBlender.git"
   },
   "keywords": [
+    "p5",
+    "rss",
     "tisch",
-    "feed"
+    "node",
+    "socket"
   ],
   "author": "kyle greenberg",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kgrnbrg/TischBlender/issues"
+  },
+  "homepage": "https://github.com/kgrnbrg/TischBlender#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.5.1"
+  }
 }

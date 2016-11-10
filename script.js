@@ -2,8 +2,12 @@ var r=random(0,255);
 var g=random(0,255);
 var b=random(0,255);
 
+var socket;
+
 function setup() { 
   createCanvas(800, 800);
+    socket = io.connect('http://localhost:3000');
+//   / socket.on(something something);
 } 
 
 function draw() { 
