@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>load demo</title>
+  <style>
+  body {
+    font-size: 12px;
+    font-family: Arial;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+ 
+<b>Projects:</b>
+<ol id="new-projects"></ol>
+ 
+<script>
+function strip(html)
+{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}    
+    
+//proxy url
+var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
+//rss url
+var url = "https://itp.nyu.edu/gorilla/wp-json/wp/v2/posts";
+var call = itp_proxy+url;
+
+//ajax getting infromation
+$.get(call, function( data ) {
+    
+    console.log(typeof(data));
+  $( "#new-projects" ).html(data);
+        //console.log(data);
+    for (i=0; i < data.length; i++){
+        console.log("data:" + data[i]);  
+    
+        var k = data[i].content.rendered;
+
+        var frame = document.createElement('iframe');
+        
+        $(frame).html(k);
+        
+        $('body').append(frame);
+        
+//        var page = data[i].
+        
+        //var n = $.parseHTML(k);
+        //var m = $($.parseHTML(k));
+        var object = $('<div/>').html(k).contents();
+        //var string = '<div><input type="text" value="val" /></div>';
+        
+//        console.log($('<div/>').html(k).contents()); 
+        console.log(object);
+        //alert( object.find('text').val() );
+    }
+    
+});
+        
+
+
+</script>
+ 
+</body>
+</html>
