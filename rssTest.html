@@ -39,25 +39,29 @@ $.get(call, function( data ) {
     for (i=0; i < data.length; i++){
         console.log("data:" + data[i]);  
     
-        var k = data[i].content.rendered;
+        var k = data[i].link;
+        console.log(k);
 
-        var frame = document.createElement('iframe');
+function prepareFrame() {
+        var ifrm = document.createElement("iframe");
+        ifrm.setAttribute("src", k);
+        ifrm.style.width = "640px";
+        ifrm.style.height = "480px";
+        document.body.appendChild(ifrm);
+    }
+        prepareFrame();
         
-        $(frame).html(k);
-        
-        $('body').append(frame);
-        
-//        var page = data[i].
-        
+      
+     
         //var n = $.parseHTML(k);
         //var m = $($.parseHTML(k));
-        var object = $('<div/>').html(k).contents();
+        //var object = $('<div/>').html(k).contents();
         //var string = '<div><input type="text" value="val" /></div>';
-        
-//        console.log($('<div/>').html(k).contents()); 
-        console.log(object);
+        //console.log($('<div/>').html(k).contents()); 
+        //console.log(object);
         //alert( object.find('text').val() );
     }
+     
     
 });
         
