@@ -49,3 +49,20 @@ function bubble(){
 
 
 }
+//
+//function prepareFrame() {
+//        var ifrm = document.createElement("iframe");
+//        ifrm.setAttribute("src", k);
+//        ifrm.style.width = "640px";
+//        ifrm.style.height = "480px";
+//        document.body.appendChild(ifrm);
+//    }
+//        
+//        prepareFrame(); 
+ 
+//function strip(html)
+//{
+//   var tmp = document.createElement("DIV");
+//   tmp.innerHTML = html;
+//   return tmp.textContent || tmp.innerText || "";
+//} 

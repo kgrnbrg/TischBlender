@@ -25,7 +25,7 @@ var randF= findThing[Math.floor(Math.random()*findThing.length)];
 var objSt=[];
 
 for (var i =0 ; i <= rssList.length; i++){
-	grabShit(rssList[i]).then(function(val){
+	pullRSS(rssList[i]).then(function(val){
 
         objSt.push(val);
 	// render the bubble here.
@@ -33,7 +33,7 @@ for (var i =0 ; i <= rssList.length; i++){
     });
 }
 
-function grabShit(url){
+function pullRSS(url){
 
 return new Promise (function(resolve, reject){
 
@@ -45,14 +45,14 @@ return new Promise (function(resolve, reject){
     
         var el = $(this);
         
-        var fake = {
+        var rssContent = {
         	title: el.find("title").text(),
         	link: el.find("link").text(),
         	author: el.find("author").text(),
         	description: el.find("description").text(),
         	content: el.find("content").text(),
         }
-        resolve(fake);
+        resolve(rssContent);
   		
  
         });
