@@ -1,33 +1,73 @@
-
+//preload pull data and put it in an object
 var r,g,b;
 var projs = [];
 var cv;
-var json;
+var div; 
+var globalDat;
+var h1;
+function preload(){  //proxy url
+    var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
+//rss url
+    var url = "https://itp.nyu.edu/gorilla/wp-json/wp/v2/posts";
+    var call = itp_proxy+url;
+    
+
+//ajax getting information
+$.get(call, function( data ) {
+    sendBack(data);
+    viz(data);
+    console.log(data);
+}); 
+    
+}
+
+function sendBack(data){
+    globalDat = data;
+      for (var i=0; i<globalDat.length; i++) {
+        var x = random(width);
+        var y = random(height);
+        projs.push(new Jitter(x,y)); 
+        
+  }
+    console.log(projs);
+}
+
 function setup(){
     cv = createCanvas(windowWidth,windowHeight);
     r = random(255);
     g = random(255);
     b = random(255);
     background(r,g,b);
-    json = {};
+    h1= createDiv("Tisch Blender");
+    h1.style("color", "#ff0000");
+    h1.position(30,30);
+    h1.style("font-size", "50px");
+    h1.style("font-style","Techno");
+    div = createDiv("hey");
+    div.hide();
+    div.position(30,90);
+    
 }   
 
 function Jitter(x,y){
-    this.x = random(width);
-    this.y = random(height);
+    
+    this.x = x;
+    this.y = y;
     this.diameter = random(50,100);
     
     this.display = function(r,g,b) {
         stroke(.5);
         fill(r,g,b);
-        rect(this.x, this.y, this.diameter,this.diameter);
+        ellipse(this.x, this.y, this.diameter,this.diameter);
         
     },
     this.clicked = function(){
+        
        var d = dist(mouseX, mouseY, this.x, this.y);
-       if (d < 40 ) {
-        return true;
-       this.color = color(255,0,200);   
+        
+       if (d < this.diameter/2 || d < this.diameter/2) {
+          
+        return true;   
      }
         return false;
         
@@ -38,62 +78,31 @@ function Jitter(x,y){
     }
 }
 
-//proxy url
-var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
-//rss url
-var url = "https://itp.nyu.edu/gorilla/wp-json/wp/v2/posts";
-var call = itp_proxy+url;
-var something;
-
-//ajax getting information
-$.get(call, function( data ) {
-    senback(data);
-    vizViz(data);
-    console.log(data);
-
-});
-    
-// for (i=0; i < data.length; i++){
-//   div = data[i].link + ;
-     
- //}
-//        var k = data[i].link;
-//        console.log("data:" + data[i]);  
-//        console.log(k);
- // }  
-
-
-function senback(data){
-    something = data;
-      for (var i=0; i<something.length; i++) {
-        projs.push(new Jitter()); 
-        
-  }
-    
-}
-
-function vizViz(data){
-    for (i=0; i < data.length; i++){
+function viz(data){
+    for (i=0; i < projs.length; i++){
         var r = random(255);
         var g = random(255);
         var b = random(255);
         projs[i].display(r,g,b);
-       
-         }    
+     }
 }
 
-function mousePressed(){
-    console.log(projs.length)
+function mouseClicked(){
         for(var i in projs){
-            console.log(projs[i].clicked())
             if(projs[i].clicked()){
                 var r = random(255);
                 var g = random(255);
                 var b = random(255);
                 projs[i].changeColor(r,g,b);
+                //changing div
                 
+                div.html(globalDat[i].link);
+                div.show();
+                console.log(globalDat);
             }
+            
         }
+    
     }
 function draw(){
 
