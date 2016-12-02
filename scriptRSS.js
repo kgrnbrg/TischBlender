@@ -4,6 +4,7 @@ var projs = [];
 var cv;
 var div; 
 var globalDat;
+var gDatLink;
 var h1;
 function preload(){  //proxy url
     var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
@@ -26,6 +27,7 @@ function sendBack(data){
       for (var i=0; i<globalDat.length; i++) {
         var x = random(width);
         var y = random(height);
+    gDatLink=globalDat[i].link;
         projs.push(new Jitter(x,y)); 
         
   }
@@ -95,7 +97,15 @@ function mouseClicked(){
                 var b = random(255);
                 projs[i].changeColor(r,g,b);
                 //changing div
-                
+                function prepareFrame() {
+        var ifrm = document.createElement("iframe");
+        ifrm.setAttribute("src", globalDat[i].link);
+        ifrm.style.width = "640px";
+        ifrm.style.height = "480px";
+        document.body.appendChild(ifrm);
+    }
+        
+                prepareFrame(globalDat[i].link); 
                 div.html(globalDat[i].link);
                 div.show();
                 console.log(globalDat);
@@ -111,3 +121,4 @@ function draw(){
 
 
 
+      
