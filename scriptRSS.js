@@ -6,6 +6,7 @@ var div;
 var globalDat;
 var gDatLink;
 var h1;
+
 function preload(){  //proxy url
     var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
 //rss url
@@ -16,7 +17,7 @@ function preload(){  //proxy url
 //ajax getting information
 $.get(call, function( data ) {
     sendBack(data);
-    viz(data);
+    //viz(data);
     console.log(data);
 }); 
     
@@ -27,11 +28,11 @@ function sendBack(data){
       for (var i=0; i<globalDat.length; i++) {
         var x = random(width);
         var y = random(height);
-    gDatLink=globalDat[i].link;
+        gDatLink=globalDat[i].link;
         projs.push(new Jitter(x,y)); 
         
   }
-    console.log(projs);
+    //console.log(projs);
 }
 
 function setup(){
@@ -52,16 +53,23 @@ function setup(){
 }   
 
 function Jitter(x,y){
+    this.r = random(255);
+    this.g = random(255);
+    this.b = random(255);
     
     this.x = x;
     this.y = y;
     this.diameter = random(50,100);
     this.speed = 5;
+    this.move = function(){
+    this.x += random(-this.speed, this.speed);
+    this.y += random(-this.speed, this.speed);
+     },
     
     
-    this.display = function(r,g,b) {
+    this.display = function() {
         stroke(.5);
-        fill(r,g,b);
+        fill(this.r,this.g,this.b);
         ellipse(this.x, this.y, this.diameter,this.diameter);
         
         
@@ -78,19 +86,20 @@ function Jitter(x,y){
         
    },
     this.changeColor = function(r,g,b){
-        this.display(r,g,b);    
+    this.r = r;
+    this.g = g;
+    this.b = b;   
     }
     
 }
 
-function viz(data){
-    for (i=0; i < projs.length; i++){
-        var r = random(255);
-        var g = random(255);
-        var b = random(255);
-        projs[i].display(r,g,b);
-     }
-}
+//function viz(data){
+//    for (i=0; i < projs.length; i++){
+//        var r = random(255);
+//        var g = random(255);
+//        var b = random(255);
+//     }
+//}
 
 function mouseClicked(){
         for(var i in projs){
@@ -114,6 +123,12 @@ function mouseClicked(){
     
     }
 
+function draw(){
+     for (i=0; i < projs.length; i++){
+       projs[i].display();
+       projs[i].move();
+    }
+}
 
                 
 
