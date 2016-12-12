@@ -9,7 +9,7 @@ var h1;
 function preload(){  //proxy url
     var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
 //rss url
-    var url = "https://itp.nyu.edu/gorilla/wp-json/wp/v2/posts";
+    var url = "https://itp.nyu.edu/gorilla/wp-json/wp/v2/posts?per_page=100";
     var call = itp_proxy+url;
     
 
@@ -56,11 +56,14 @@ function Jitter(x,y){
     this.x = x;
     this.y = y;
     this.diameter = random(50,100);
+    this.speed = 5;
+    
     
     this.display = function(r,g,b) {
         stroke(.5);
         fill(r,g,b);
         ellipse(this.x, this.y, this.diameter,this.diameter);
+        
         
     },
     this.clicked = function(){
@@ -75,9 +78,9 @@ function Jitter(x,y){
         
    },
     this.changeColor = function(r,g,b){
-        this.display(r,g,b);
-        
+        this.display(r,g,b);    
     }
+    
 }
 
 function viz(data){
@@ -95,30 +98,23 @@ function mouseClicked(){
                 var r = random(255);
                 var g = random(255);
                 var b = random(255);
+                 //changing div
                 projs[i].changeColor(r,g,b);
-                //changing div
-                function prepareFrame() {
-        var ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", globalDat[i].link);
-        ifrm.style.width = "640px";
-        ifrm.style.height = "480px";
-        document.body.appendChild(ifrm);
-    }
-        
-                prepareFrame(globalDat[i].link); 
-                div.html(globalDat[i].link);
+            
+                
+                div.html(globalDat[i].title.rendered);
+                div.style("font-size", "50px");
+                div.style("font-style","Techno");
                 div.show();
+                
                 console.log(globalDat);
             }
             
         }
     
     }
-function draw(){
-
-}
 
 
-
+                
 
       
