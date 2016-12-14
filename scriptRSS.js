@@ -64,26 +64,22 @@ function Jitter(x,y){
     this.move = function(){
     this.x += random(-this.speed, this.speed);
     this.y += random(-this.speed, this.speed);
+     
+        if (this.x < width - this.diameter || this.x > this.diameter) { this.speed = -this.speed;  }
+        if (this.y < height - this.diameter || this.y > this.diameter) { this.speed = -this.speed; }    
      },
-    
-    
     this.display = function() {
         stroke(.5);
         fill(this.r,this.g,this.b);
-        ellipse(this.x, this.y, this.diameter,this.diameter);
-        
-        
+        ellipse(this.x, this.y, this.diameter,this.diameter);   
     },
     this.clicked = function(){
-        
        var d = dist(mouseX, mouseY, this.x, this.y);
-        
        if (d < this.diameter/2 || d < this.diameter/2) {
-          
-        return true;   
+        return true; 
+           
      }
         return false;
-        
    },
     this.changeColor = function(r,g,b){
     this.r = r;
@@ -109,25 +105,22 @@ function mouseClicked(){
                 var b = random(255);
                  //changing div
                 projs[i].changeColor(r,g,b);
-            
-                
                 div.html(globalDat[i].title.rendered);
                 div.style("font-size", "50px");
                 div.style("font-style","Techno");
                 div.show();
-                
                 console.log(globalDat);
             }
-            
         }
-    
     }
 
 function draw(){
      for (i=0; i < projs.length; i++){
        projs[i].display();
        projs[i].move();
+        
     }
+
 }
 
                 
