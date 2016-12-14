@@ -6,23 +6,35 @@ var div;
 var globalDat;
 var gDatLink;
 var h1;
-
+var imageRSSlink;
 function preload(){  //proxy url
     var itp_proxy = "https://itp.nyu.edu/ranch/proxy/proxy.php?mode=native&url=";
 //rss url
     var url = "https://itp.nyu.edu/gorilla/wp-json/wp/v2/posts?per_page=100";
     var call = itp_proxy+url;
+    var imgURL = "https://itp.nyu.edu/gorilla/wp-json/wp/v2/media/";
+    var imgCall =itp_proxy+imgURL;
     
-
 //ajax getting information
 $.get(call, function( data ) {
     sendBack(data);
     //viz(data);
     console.log(data);
 }); 
+$.get(imgCall, function( data ) {
+    sendImgBack(data);
+    //viz(data);
+    console.log(data);
+}); 
     
 }
-
+function sendImgBack(data){
+    globalImgDat = data;
+  for (var i=0; i<globalImgDat.length; i++) { 
+    imageRSSlink = globalImgDat[i].source_url;
+      console.log(imageRSSlink);
+}
+}
 function sendBack(data){
     globalDat = data;
       for (var i=0; i<globalDat.length; i++) {
@@ -30,7 +42,6 @@ function sendBack(data){
         var y = random(height);
         gDatLink=globalDat[i].link;
         projs.push(new Jitter(x,y)); 
-        
   }
     //console.log(projs);
 }
@@ -104,8 +115,12 @@ function mouseClicked(){
                 var g = random(255);
                 var b = random(255);
                  //changing div
+                
                 projs[i].changeColor(r,g,b);
                 div.html(globalDat[i].title.rendered);
+                
+                div.html('<img src='+imageRSSlink+'>');
+               
                 div.style("font-size", "50px");
                 div.style("font-style","Techno");
                 div.show();
